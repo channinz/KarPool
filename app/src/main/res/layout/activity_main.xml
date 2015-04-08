@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <!--  Button for driver -->
+    <Button android:id="@+id/btnDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/driver"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"/>
+
+    <!--  Button for rider -->
+    <Button android:id="@+id/btnRider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rider"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"/>
+
+</LinearLayout>
