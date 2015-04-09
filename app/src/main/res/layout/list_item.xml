@@ -12,24 +12,35 @@
         android:visibility="gone" />
 
     <!-- Name Label -->
+
+    <TextView
+        android:id="@+id/name_temp"
+        android:text="Driver: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dip"
+        android:paddingLeft="6dip"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/drivername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="6dip"
         android:paddingLeft="6dip"
-        android:text="name: "
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:layout_toRightOf="@id/name_temp"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/seat_temp"
+        android:text="  Ava Seats: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="6dip"
         android:paddingLeft="6dip"
-        android:textSize="17sp"
-        android:layout_toRightOf="@id/drivername"/>
+        android:textSize="30sp"
+        android:layout_below="@id/name_temp"/>
 
     <TextView
         android:id="@+id/driverseat"
@@ -37,8 +48,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="6dip"
         android:paddingLeft="6dip"
-        android:textSize="17sp"
-        android:layout_toRightOf="@id/seat_temp"/>
+        android:textSize="30sp"
+        android:layout_alignBaseline="@+id/seat_temp"
+        android:layout_alignBottom="@+id/seat_temp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/seat_temp"
+        android:layout_toEndOf="@+id/seat_temp" />
 
 
 </RelativeLayout>
