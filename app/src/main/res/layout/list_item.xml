@@ -18,8 +18,18 @@
         android:layout_height="wrap_content"
         android:paddingTop="6dip"
         android:paddingLeft="6dip"
+        android:text="name: "
         android:textSize="17sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/seat_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dip"
+        android:paddingLeft="6dip"
+        android:textSize="17sp"
+        android:layout_toRightOf="@id/drivername"/>
 
     <TextView
         android:id="@+id/driverseat"
@@ -28,7 +38,7 @@
         android:paddingTop="6dip"
         android:paddingLeft="6dip"
         android:textSize="17sp"
-        android:layout_toRightOf="@id/drivername"/>
+        android:layout_toRightOf="@id/seat_temp"/>
 
 
 </RelativeLayout>

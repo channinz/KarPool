@@ -10,14 +10,14 @@
     <EditText android:id="@+id/etxRiderName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="rider's name"
+        android:hint="rider's name"
         android:gravity="left"
         android:layout_marginTop="50dp"/>
 
     <EditText android:id="@+id/etxRiderCell"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="rider's cell"
+        android:hint="rider's cell"
         android:gravity="left"
         android:layout_marginTop="50dp"/>
 
