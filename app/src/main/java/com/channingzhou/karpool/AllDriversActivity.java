@@ -2,14 +2,21 @@ package com.channingzhou.karpool;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -19,7 +26,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 
 public class AllDriversActivity extends ListActivity {
 
@@ -40,6 +46,7 @@ public class AllDriversActivity extends ListActivity {
     private static final String TAG_ID = "id";
     private static final String TAG_NAME = "name";
     private static final String TAG_SEAT = "ava_seats";
+    private static final String TAG_CELL = "cellphone";
 
     //drivers JSONArray
     JSONArray drivers = null;
@@ -59,25 +66,32 @@ public class AllDriversActivity extends ListActivity {
         ListView lv = getListView();
 
         //on selecting single driver
-        //launching SEND SMS SCREEN
-        /*lv.setOnClickListener(new OnItemClickListener(){
-
+        //SEND SMS SCREEN
+        lv.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                //getting values from selected listitem
-                String pid = ((TextView) view.findViewById(R.id.id)).getText().toString();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String did = ((TextView) view.findViewById(R.id.id)).getText().toString();
+                String number = null;
+                for(int i = 0; i < driversList.size(); i++){
+                    if(driversList.get(i).get("id") == did){
+                        number = driversList.get(i).get("cellphone");
+                    }
+                }
 
-                //starting new intent to send SMS
-                Intent in = new Intent(getApplicationContext(),
-                        EditProductActivity.class);
-                // sending pid to next activity
-                in.putExtra(TAG_PID, pid);
+                Intent i = getIntent();
+                String ridername = i.getStringExtra("name");
+                String ridercell = i.getStringExtra("cell");
+                System.out.println(ridername);
+                System.out.println(ridercell);
+                //send sms
+                String text = "Hi Driver, " + ridername + " phone: " + ridercell + " wants to ride with you";
+                SmsManager sms = SmsManager.getDefault();
+                sms.sendTextMessage(number, null, text, null, null);
 
-
-                //starting new activity and expecting some response back
-                //startActivityForResult(in, 100);
+                Toast.makeText(AllDriversActivity.this,"have texted the driver, please wait for the response...",
+                                                Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 
     //for SMS sending
@@ -129,6 +143,7 @@ public class AllDriversActivity extends ListActivity {
                         String id = c.getString(TAG_ID);
                         String name = c.getString(TAG_NAME);
                         String seats = c.getString(TAG_SEAT);
+                        String cell = c.getString(TAG_CELL);
 
                         //create new hashmap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -137,6 +152,7 @@ public class AllDriversActivity extends ListActivity {
                         map.put(TAG_ID, id);
                         map.put(TAG_NAME, name);
                         map.put(TAG_SEAT, seats);
+                        map.put(TAG_CELL, cell);
 
                         //adding hashlist to arrayList
                         driversList.add(map);

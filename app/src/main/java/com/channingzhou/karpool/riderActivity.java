@@ -99,8 +99,15 @@ public class riderActivity extends Activity {
                 if (success == 1) {
                     //successfully created rider
                     Intent i = new Intent(getApplicationContext(),AllDriversActivity.class);
-                    startActivity(i);
 
+
+                    i.putExtra("name", riderName.getText().toString());
+                    i.putExtra("cell", riderCell.getText().toString());
+
+                    System.out.print("rider: "+name);
+                    System.out.println(" " + cell);
+
+                    startActivity(i);
                     //closing
                     finish();
                 }
