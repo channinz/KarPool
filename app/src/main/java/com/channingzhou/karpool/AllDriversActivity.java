@@ -36,9 +36,10 @@ public class AllDriversActivity extends ListActivity {
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_DRIVERS = "name";
+    private static final String TAG_DRIVERS = "driver";
     private static final String TAG_ID = "id";
     private static final String TAG_NAME = "name";
+    private static final String TAG_SEAT = "ava_seats";
 
     //drivers JSONArray
     JSONArray drivers = null;
@@ -118,7 +119,7 @@ public class AllDriversActivity extends ListActivity {
                 if(success == 1){
                     //drivers found
                     //getting array of drivers
-                    drivers = json.getJSONArray(TAG_NAME);
+                    drivers = json.getJSONArray(TAG_DRIVERS);
 
                     //looping through all drivers
                     for (int i = 0; i < drivers.length(); i++){
@@ -127,6 +128,7 @@ public class AllDriversActivity extends ListActivity {
                         //store each JSON item in variable
                         String id = c.getString(TAG_ID);
                         String name = c.getString(TAG_NAME);
+                        String seats = c.getString(TAG_SEAT);
 
                         //create new hashmap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -134,6 +136,7 @@ public class AllDriversActivity extends ListActivity {
                         //add each child node to hashmap key=> key
                         map.put(TAG_ID, id);
                         map.put(TAG_NAME, name);
+                        map.put(TAG_SEAT, seats);
 
                         //adding hashlist to arrayList
                         driversList.add(map);
@@ -159,6 +162,8 @@ public class AllDriversActivity extends ListActivity {
         protected  void onPostExecute(String file_url){
             //dismiss the dialog
             pDialog.dismiss();
+
+            final String temp_seat = "Available seats: " + TAG_SEAT;
             //update UI from background thread
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -167,8 +172,8 @@ public class AllDriversActivity extends ListActivity {
                     * */
 
                     ListAdapter adapter = new SimpleAdapter(
-                            AllDriversActivity.this, driversList, R.layout.list_item, new String[]{TAG_ID, TAG_NAME},
-                            new int[] {R.id.id, R.id.drivername});
+                            AllDriversActivity.this, driversList, R.layout.list_item, new String[]{TAG_ID, TAG_NAME, TAG_SEAT},
+                            new int[] {R.id.id, R.id.drivername, R.id.driverseat});
                     //update listview
                     setListAdapter(adapter);
 
@@ -176,7 +181,7 @@ public class AllDriversActivity extends ListActivity {
             });
         }
 
-     }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
