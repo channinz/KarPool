@@ -11,7 +11,6 @@
     <EditText android:id="@+id/etxDriverName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
         android:hint="Driver's name"
         android:gravity="left"/>
 
@@ -20,7 +19,6 @@
         android:layout_height="wrap_content"
         android:hint="Driver's cell"
         android:gravity="left"
-
         android:layout_below="@id/etxDriverName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -30,8 +28,7 @@
         android:layout_height="wrap_content"
         android:hint="Available seats"
         android:gravity="left"
-
-        android:layout_below="@+id/etxDriverCell"
+        android:layout_below="@id/etxDriverCell"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

@@ -90,8 +90,8 @@ public class driverActivity extends Activity {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("name", name));
             params.add(new BasicNameValuePair("cellphone", cell));
-            params.add(new BasicNameValuePair("ava_seats", seats));
             params.add(new BasicNameValuePair("car_type", car));
+            params.add(new BasicNameValuePair("ava_seats", seats));
 
             //getting JSON object
             JSONObject json = jsonParser.makeHttpRequest(url_create_driver, "POST", params);
