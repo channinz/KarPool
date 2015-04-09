@@ -24,14 +24,14 @@ public class MainActivity extends Activity {
         btnDriver = (Button) findViewById(R.id.btnDriver);
         btnRider = (Button) findViewById(R.id.btnRider);
 
-        /*//driver click event
+        //driver click event
         btnDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), driverActivity.class);
                 startActivity(i);
             }
-        });*/
+        });
 
         //rider click event
         btnRider.setOnClickListener(new View.OnClickListener(){

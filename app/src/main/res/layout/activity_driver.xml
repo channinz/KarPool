@@ -35,7 +35,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <EditText android:id="@+id/etxCarType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="CarType"
+        android:layout_below="@id/etxAvaSeats"
+        android:gravity="left"/>
+
     <Button
+        android:id="@+id/save_driver"
         android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
