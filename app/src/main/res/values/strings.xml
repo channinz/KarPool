@@ -2,11 +2,20 @@
 <resources>
 
     <string name="app_name">KarPool</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Hello. </string>
     <string name="action_settings">Settings</string>
     <string name="driver">Driver</string>
     <string name="rider">Rider</string>
     <string name="title_activity_driver">driverActivity</string>
     <string name="title_activity_all_drivers">AllDriversActivity</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_main_with_login">mainWithLogin</string>
+    <string name="Login_Test">Login</string>
+    <string name="click_to_login">Sign In</string>
+    <string name="click_to_signup">Sign Up</string>
+    <string name="attri_back">#80000000</string>
+    <string name="welcome">Welcome to KarPool.</string>
+    <string name="password">Password</string>
+    <string name="usename">User name</string>
 
 </resources>

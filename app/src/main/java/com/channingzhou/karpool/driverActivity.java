@@ -104,7 +104,7 @@ public class driverActivity extends Activity {
                 int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     //successfully created rider
-                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent i = new Intent(getApplicationContext(),driverAndRider.class);
                     startActivity(i);
 
                     //closing

@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
     package="com.channingzhou.karpool" >
 
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_van"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.NoTitle" >
         <activity
-            android:name=".MainActivity"
+            android:name=".driverAndRider"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- all drivers activity -->
 
         <activity
+
             android:name=".AllDriversActivity"
             android:label="All drivers" >
         </activity>
 
         <!-- rider -->
         <activity
+
             android:name=".riderActivity"
             android:label="All drivers" >
         </activity>
         <activity
+
             android:name=".driverActivity"
             android:label="@string/title_activity_driver" >
         </activity>
 
-        <receiver android:name=".SMSReceiver">
-            <intent-filter android:priority="1000">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+        <receiver android:name=".SMSReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".login"
+            android:label="@string/title_activity_login" >
+        </activity>
+
+        <activity
+            android:name=".mainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <!--  Button for driver -->
+    <TextView
+        android:text="I want to be a:"
+        android:textSize="50sp"
+        android:layout_marginTop="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:orientation="vertical">
+        <Button android:id="@+id/btnDriver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/driver"
+            android:background="@drawable/button_shape"
+            android:textSize="50sp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <Button android:id="@+id/btnRider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rider"
+        android:textSize="50sp"
+        android:background="@drawable/button_shape"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
+
