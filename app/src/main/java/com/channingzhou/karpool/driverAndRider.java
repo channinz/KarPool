@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class driverAndRider extends Activity {
@@ -19,6 +20,9 @@ public class driverAndRider extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_rider);
+
+        Toast.makeText(driverAndRider.this,
+                "Login Sucessfull", Toast.LENGTH_LONG).show();
 
         //buttons
         btnDriver = (Button) findViewById(R.id.btnDriver);

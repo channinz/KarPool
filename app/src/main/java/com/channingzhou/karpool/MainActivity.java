@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,13 +87,19 @@ public class mainActivity extends Activity implements OnClickListener {
                         //validate the login info
 
                         new userLogin().execute();
+                        /*if(new userLogin().right) {
 
-                        /*Intent i = new Intent(mainActivity.this, driverAndRider.class);
-                        startActivity(i);
 
-                        Toast.makeText(mainActivity.this,
-                                "Login Sucessfull", Toast.LENGTH_LONG).show();*/
+                            Intent i = new Intent(mainActivity.this, driverAndRider.class);
+                            startActivity(i);
 
+                            Toast.makeText(mainActivity.this,
+                                    "Login Successfull", Toast.LENGTH_LONG).show();
+
+                        }*/
+
+                       /* Toast.makeText(mainActivity.this,
+                                           "Login Sucessfull", Toast.LENGTH_LONG).show();*/
 
                         // Redirect to dashboard / home screen.
                         login.dismiss();
@@ -106,6 +113,8 @@ public class mainActivity extends Activity implements OnClickListener {
                 }
 
                 class userLogin extends AsyncTask<String, String, String>{
+
+                    boolean right = false;
                     @Override
                     protected String doInBackground(String... args) {
 
@@ -117,7 +126,6 @@ public class mainActivity extends Activity implements OnClickListener {
 
                         //get the same user name's info
                         JSONObject json = jsonParser.makeHttpRequest(url_login_user, "GET", params1);
-                        
 
                         //check the json respones
                         Log.d("Create Response", json.toString());
@@ -127,7 +135,7 @@ public class mainActivity extends Activity implements OnClickListener {
                             int success = json.getInt(TAG_SUCCESS);
                             if(success == 1) {
                                 //successfully received user info
-                                JSONArray userInfoObj = json.getJSONArray("user_name");
+                                JSONArray userInfoObj = json.getJSONArray("user");
 
                                 JSONObject userInfo = userInfoObj.getJSONObject(0);
 
@@ -135,13 +143,41 @@ public class mainActivity extends Activity implements OnClickListener {
 
                                 if (realPassword.equals(password)){
 
-                                    // Validate login credential here than display message
-                                    Toast.makeText(mainActivity.this,
-                                            "Login Sucessfull", Toast.LENGTH_LONG).show();
-
                                     Intent i = new Intent(mainActivity.this, driverAndRider.class);
                                     startActivity(i);
+                                    /*i.putExtra("user_name", username);*/
+
+                                    try {
+                                        new Thread() {
+                                            @Override
+                                            public void run() {
+                                                Looper.prepare();
+                                                Toast.makeText(mainActivity.this, "Log in successfully ", Toast.LENGTH_LONG).show();
+                                                Looper.loop();
+                                            }
+                                        }.start();
+                                    } catch (Exception e) {
+                                        // TODO: handle exception
+                                        e.printStackTrace();
+                                    }
+
+                                }else{
+                                    try {
+                                        new Thread() {
+                                            @Override
+                                            public void run() {
+                                                Looper.prepare();
+                                                Toast.makeText(mainActivity.this, "user name or password is not right", Toast.LENGTH_LONG).show();
+                                                Looper.loop();
+                                            }
+                                        }.start();
+                                    } catch (Exception e) {
+                                        // TODO: handle exception
+                                        e.printStackTrace();
+                                    }
                                 }
+
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
