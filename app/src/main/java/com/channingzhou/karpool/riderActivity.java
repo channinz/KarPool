@@ -31,7 +31,7 @@ public class riderActivity extends Activity {
     EditText riderCell;
 
     //url to create new rider
-    private static String url_create_rider = "http://192.168.0.21/karpool/riderRegister.php";
+    private static String url_create_rider = "http://192.168.1.81/karpool/riderRegister.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";

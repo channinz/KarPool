@@ -33,8 +33,8 @@ public class mainActivity extends Activity implements OnClickListener {
     //progress Dialog
     private ProgressDialog pDialog;
 
-    private static String url_create_user = "http://192.168.0.21/karpool/userRegister.php";
-    private static String url_login_user = "http://192.168.0.21/karpool/userLogin.php";
+    private static String url_create_user = "http://192.168.1.81/karpool/userRegister.php";
+    private static String url_login_user = "http://192.168.1.81/karpool/userLogin.php";
 
     JSONParser jsonParser = new JSONParser();
 
@@ -128,7 +128,7 @@ public class mainActivity extends Activity implements OnClickListener {
                         JSONObject json = jsonParser.makeHttpRequest(url_login_user, "GET", params1);
 
                         //check the json respones
-                        Log.d("Create Response", json.toString());
+                        //Log.d("Create Response", json.toString());
 
                         //json success tag
                         try{
@@ -260,6 +260,8 @@ public class mainActivity extends Activity implements OnClickListener {
                         params.add(new BasicNameValuePair("password", password));
 
                         JSONObject json = jsonParser.makeHttpRequest(url_create_user, "POST", params);
+                        System.out.println(params);
+                        System.out.println(json);
 
                         Log.d("Create Response", json.toString());
 

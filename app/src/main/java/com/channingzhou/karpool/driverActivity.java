@@ -31,7 +31,7 @@ public class driverActivity extends Activity {
     EditText carType;
 
     //url to create new rider
-    private static String url_create_driver = "http://192.168.0.21/karpool/driverRegister.php";
+    private static String url_create_driver = "http://192.168.1.81/karpool/driverRegister.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";

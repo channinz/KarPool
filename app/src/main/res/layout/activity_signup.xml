@@ -7,16 +7,19 @@
     <EditText
         android:layout_height="wrap_content"
         android:id="@+id/txtUsername"
+        android:hint="user name"
         android:layout_width="match_parent"/>
     <EditText
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:hint="password"
         android:id="@+id/txtPassword"
         android:layout_width="match_parent"/>
     <EditText
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:id="@+id/txtPassword2"
+        android:hint="re-type password"
         android:layout_width="match_parent"/>
     <LinearLayout
         android:layout_width="match_parent"

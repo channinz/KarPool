@@ -38,7 +38,7 @@ public class AllDriversActivity extends ListActivity {
     ArrayList<HashMap<String, String>> driversList;
 
     //url to get all drivers list
-    private static String url_all_drivers = "http://192.168.0.21/karpool/getAllDrivers.php";
+    private static String url_all_drivers = "http://192.168.1.81/karpool/getAllDrivers.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -84,7 +84,7 @@ public class AllDriversActivity extends ListActivity {
                 System.out.println(ridername);
                 System.out.println(ridercell);
                 //send sms
-                String text = "Hi Driver, " + ridername + " phone: " + ridercell + " wants to ride with you";
+                String text = "Hi Driver, " + ridername + " phone: " + ridercell + " wants to ride with you. reply 'Y' for agree";
                 SmsManager sms = SmsManager.getDefault();
                 sms.sendTextMessage(number, null, text, null, null);
 

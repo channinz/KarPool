@@ -40,7 +40,7 @@
             android:label="@string/title_activity_driver" >
         </activity>
 
-        <receiver android:name=".SMSReceiver" >
+        <receiver android:name=".SMS_Receiver" >
             <intent-filter android:priority="1000" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
