@@ -30,8 +30,11 @@ public class riderActivity extends Activity {
     EditText riderName;
     EditText riderCell;
 
+    Intent intent = getIntent();
+    String eventInfo = intent.getStringExtra("event");
+
     //url to create new rider
-    private static String url_create_rider = "http://192.168.1.81/karpool/riderRegister.php";
+    private static String url_create_rider = "http://192.168.0.21/karpool/riderRegister.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -103,7 +106,7 @@ public class riderActivity extends Activity {
 
                     i.putExtra("name", riderName.getText().toString());
                     i.putExtra("cell", riderCell.getText().toString());
-
+                    i.putExtra("event",eventInfo);
                     System.out.print("rider: "+name);
                     System.out.println(" " + cell);
 

@@ -33,13 +33,14 @@ public class mainActivity extends Activity implements OnClickListener {
     //progress Dialog
     private ProgressDialog pDialog;
 
-    private static String url_create_user = "http://192.168.1.81/karpool/userRegister.php";
-    private static String url_login_user = "http://192.168.1.81/karpool/userLogin.php";
+    private static String url_create_user = "http://192.168.0.21/karpool/userRegister.php";
+    private static String url_login_user = "http://192.168.0.21/karpool/userLogin.php";
 
     JSONParser jsonParser = new JSONParser();
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,19 +72,15 @@ public class mainActivity extends Activity implements OnClickListener {
             // Init button of login GUI
             Button btnLogin = (Button) login.findViewById(R.id.btnLogin);
             Button btnCancel = (Button) login.findViewById(R.id.btnCancel);
-            final EditText txtUsername = (EditText)login.findViewById(R.id.txtUsername);
-            final EditText txtPassword = (EditText)login.findViewById(R.id.txtPassword);
-
-
-
+            final EditText txtUsername = (EditText) login.findViewById(R.id.txtUsername);
+            final EditText txtPassword = (EditText) login.findViewById(R.id.txtPassword);
 
 
             // Attached listener for login GUI button
             btnLogin.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(txtUsername.getText().toString().trim().length() > 0 && txtPassword.getText().toString().trim().length() > 0)
-                    {
+                    if (txtUsername.getText().toString().trim().length() > 0 && txtPassword.getText().toString().trim().length() > 0) {
                         //validate the login info
 
                         new userLogin().execute();
@@ -103,18 +100,17 @@ public class mainActivity extends Activity implements OnClickListener {
 
                         // Redirect to dashboard / home screen.
                         login.dismiss();
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(mainActivity.this,
                                 "Please enter Username and Password", Toast.LENGTH_LONG).show();
 
                     }
                 }
 
-                class userLogin extends AsyncTask<String, String, String>{
+                class userLogin extends AsyncTask<String, String, String> {
 
                     boolean right = false;
+
                     @Override
                     protected String doInBackground(String... args) {
 
@@ -128,12 +124,12 @@ public class mainActivity extends Activity implements OnClickListener {
                         JSONObject json = jsonParser.makeHttpRequest(url_login_user, "GET", params1);
 
                         //check the json respones
-                        //Log.d("Create Response", json.toString());
+                        Log.d("Create Response", json.toString());
 
                         //json success tag
-                        try{
+                        try {
                             int success = json.getInt(TAG_SUCCESS);
-                            if(success == 1) {
+                            if (success == 1) {
                                 //successfully received user info
                                 JSONArray userInfoObj = json.getJSONArray("user");
 
@@ -141,9 +137,9 @@ public class mainActivity extends Activity implements OnClickListener {
 
                                 String realPassword = userInfo.getString("password");
 
-                                if (realPassword.equals(password)){
+                                if (realPassword.equals(password)) {
 
-                                    Intent i = new Intent(mainActivity.this, driverAndRider.class);
+                                    Intent i = new Intent(mainActivity.this, event.class);
                                     startActivity(i);
                                     /*i.putExtra("user_name", username);*/
 
@@ -161,7 +157,7 @@ public class mainActivity extends Activity implements OnClickListener {
                                         e.printStackTrace();
                                     }
 
-                                }else{
+                                } else {
                                     try {
                                         new Thread() {
                                             @Override
@@ -199,7 +195,7 @@ public class mainActivity extends Activity implements OnClickListener {
             login.show();
         }
 
-        if(v == btnSignupDialog){
+        if (v == btnSignupDialog) {
 
             // Create Object of Dialog class
             final Dialog signup = new Dialog(this);
@@ -210,9 +206,9 @@ public class mainActivity extends Activity implements OnClickListener {
             // Init button of signup GUI
             Button btnSignup = (Button) signup.findViewById(R.id.btnSignup);
             Button btnCancel = (Button) signup.findViewById(R.id.btnCancel);
-            final EditText txtUsername = (EditText)signup.findViewById(R.id.txtUsername);
-            final EditText txtPassword = (EditText)signup.findViewById(R.id.txtPassword);
-            final EditText txtPassword2 = (EditText)signup.findViewById(R.id.txtPassword2);
+            final EditText txtUsername = (EditText) signup.findViewById(R.id.txtUsername);
+            final EditText txtPassword = (EditText) signup.findViewById(R.id.txtPassword);
+            final EditText txtPassword2 = (EditText) signup.findViewById(R.id.txtPassword2);
 
             // Attached listener for signup GUI button
             btnSignup.setOnClickListener(new OnClickListener() {
@@ -224,17 +220,15 @@ public class mainActivity extends Activity implements OnClickListener {
                             //update user table
                             new RegisterNewUser().execute();
 
-                            Intent i = new Intent(mainActivity.this, driverAndRider.class);
+                            Intent i = new Intent(mainActivity.this, event.class);
                             startActivity(i);
 
                             Toast.makeText(mainActivity.this,
                                     "Sign Up Sucessfull", Toast.LENGTH_LONG).show();
 
 
-
                             // Redirect to dashboard / home screen.
                             signup.dismiss();
-
 
 
                         } else {
@@ -265,9 +259,9 @@ public class mainActivity extends Activity implements OnClickListener {
 
                         Log.d("Create Response", json.toString());
 
-                        try{
+                        try {
                             int success = json.getInt(TAG_SUCCESS);
-                            if(success == 1){
+                            if (success == 1) {
 
                                 /*Intent i = new Intent(mainActivity.this, driverAndRider.class);
                                 startActivity(i);*/
@@ -293,29 +287,6 @@ public class mainActivity extends Activity implements OnClickListener {
         }
 
     }
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_with_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
+
+

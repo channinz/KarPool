@@ -17,5 +17,10 @@
     <string name="welcome">Welcome to KarPool.</string>
     <string name="password">Password</string>
     <string name="usename">User name</string>
+    <string name="title_activity_creat_event">creatEvent</string>
+    <string name="title_activity_event">event</string>
+    <string name="create_event">Create Event</string>
+    <string name="search_event">Search Event</string>
+    <string name="title_activity_all_events">allEvents</string>
 
 </resources>

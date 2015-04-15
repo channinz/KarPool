@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -15,6 +16,7 @@ public class driverAndRider extends Activity {
 
     Button btnDriver;
     Button btnRider;
+    TextView txtEventInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +30,7 @@ public class driverAndRider extends Activity {
         btnDriver = (Button) findViewById(R.id.btnDriver);
         btnRider = (Button) findViewById(R.id.btnRider);
 
-        //driver click event
-        btnDriver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), driverActivity.class);
-                startActivity(i);
-            }
-        });
+
 
         //rider click event
         btnRider.setOnClickListener(new View.OnClickListener(){
@@ -45,6 +40,22 @@ public class driverAndRider extends Activity {
                 startActivity(i);
             }
         });
+
+        txtEventInfo = (TextView)findViewById(R.id.txtEventInfo);
+        Intent intent = getIntent();
+        final String eventInfo = intent.getStringExtra("event");
+        txtEventInfo.setText(eventInfo);
+
+        //driver click event
+        btnDriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), driverActivity.class);
+                i.putExtra("event",eventInfo);
+                startActivity(i);
+            }
+        });
+
     }
 
 

@@ -47,6 +47,10 @@ public class AllDriversActivity extends ListActivity {
     private static final String TAG_NAME = "name";
     private static final String TAG_SEAT = "ava_seats";
     private static final String TAG_CELL = "cellphone";
+    private static final String TAG_EVENT= "event";
+
+    Intent intent = getIntent();
+    String eventInfo = intent.getStringExtra("event");
 
     //drivers JSONArray
     JSONArray drivers = null;
@@ -64,6 +68,8 @@ public class AllDriversActivity extends ListActivity {
 
         //get listview
         ListView lv = getListView();
+
+
 
         //on selecting single driver
         //SEND SMS SCREEN
@@ -147,18 +153,21 @@ public class AllDriversActivity extends ListActivity {
                         String name = c.getString(TAG_NAME);
                         String seats = c.getString(TAG_SEAT);
                         String cell = c.getString(TAG_CELL);
+                        String event = c.getString(TAG_EVENT);
 
                         //create new hashmap
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         //add each child node to hashmap key=> key
-                        map.put(TAG_ID, id);
-                        map.put(TAG_NAME, name);
-                        map.put(TAG_SEAT, seats);
-                        map.put(TAG_CELL, cell);
+                        if(eventInfo == event){
+                            map.put(TAG_ID, id);
+                            map.put(TAG_NAME, name);
+                            map.put(TAG_SEAT, seats);
+                            map.put(TAG_CELL, cell);
 
-                        //adding hashlist to arrayList
-                        driversList.add(map);
+                            //adding hashlist to arrayList
+                            driversList.add(map);
+                        }
                     }
                 } else {
                     //no driver found
