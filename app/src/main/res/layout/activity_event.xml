@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Exist Event Code"
-        android:id="@+id/editText"
+        android:id="@+id/editTextEventCode"
         android:layout_above="@+id/searchEvent"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

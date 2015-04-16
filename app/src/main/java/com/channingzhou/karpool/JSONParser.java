@@ -64,8 +64,6 @@ public class JSONParser {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 is = httpEntity.getContent();
             }
-
-
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -87,14 +85,12 @@ public class JSONParser {
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
-
         // try parse the string to a JSON object
         try {
             jObj = new JSONObject(json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-
         // return JSON String
         return jObj;
 

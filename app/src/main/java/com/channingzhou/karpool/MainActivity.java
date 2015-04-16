@@ -33,8 +33,8 @@ public class mainActivity extends Activity implements OnClickListener {
     //progress Dialog
     private ProgressDialog pDialog;
 
-    private static String url_create_user = "http://192.168.0.21/karpool/userRegister.php";
-    private static String url_login_user = "http://192.168.0.21/karpool/userLogin.php";
+    private static String url_create_user = "http://192.168.1.81/karpool/userRegister.php";
+    private static String url_login_user = "http://192.168.1.81/karpool/userLogin.php";
 
     JSONParser jsonParser = new JSONParser();
 
@@ -45,10 +45,6 @@ public class mainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       /* requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-
         setContentView(R.layout.activity_main);
 
         btnLoginDialog = (Button) findViewById(R.id.btnLoginDialog);
@@ -57,7 +53,6 @@ public class mainActivity extends Activity implements OnClickListener {
         btnSignupDialog = (Button) findViewById(R.id.btnSignupDialog);
         btnSignupDialog.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -81,24 +76,7 @@ public class mainActivity extends Activity implements OnClickListener {
                 @Override
                 public void onClick(View v) {
                     if (txtUsername.getText().toString().trim().length() > 0 && txtPassword.getText().toString().trim().length() > 0) {
-                        //validate the login info
-
                         new userLogin().execute();
-                        /*if(new userLogin().right) {
-
-
-                            Intent i = new Intent(mainActivity.this, driverAndRider.class);
-                            startActivity(i);
-
-                            Toast.makeText(mainActivity.this,
-                                    "Login Successfull", Toast.LENGTH_LONG).show();
-
-                        }*/
-
-                       /* Toast.makeText(mainActivity.this,
-                                           "Login Sucessfull", Toast.LENGTH_LONG).show();*/
-
-                        // Redirect to dashboard / home screen.
                         login.dismiss();
                     } else {
                         Toast.makeText(mainActivity.this,
@@ -141,7 +119,6 @@ public class mainActivity extends Activity implements OnClickListener {
 
                                     Intent i = new Intent(mainActivity.this, event.class);
                                     startActivity(i);
-                                    /*i.putExtra("user_name", username);*/
 
                                     try {
                                         new Thread() {
@@ -215,31 +192,21 @@ public class mainActivity extends Activity implements OnClickListener {
                 @Override
                 public void onClick(View v) {
                     if (txtUsername.getText().toString().trim().length() > 0 && txtPassword.getText().toString().trim().length() > 0) {
-
                         if (txtPassword.getText().toString().equals(txtPassword2.getText().toString())) {
                             //update user table
                             new RegisterNewUser().execute();
-
                             Intent i = new Intent(mainActivity.this, event.class);
                             startActivity(i);
-
                             Toast.makeText(mainActivity.this,
                                     "Sign Up Sucessfull", Toast.LENGTH_LONG).show();
-
-
-                            // Redirect to dashboard / home screen.
                             signup.dismiss();
-
-
                         } else {
                             Toast.makeText(mainActivity.this,
                                     "Password does not match the first one", Toast.LENGTH_LONG).show();
                         }
-
                     } else {
                         Toast.makeText(mainActivity.this,
                                 "Please enter Username and Password", Toast.LENGTH_LONG).show();
-
                     }
                 }
 
@@ -262,15 +229,12 @@ public class mainActivity extends Activity implements OnClickListener {
                         try {
                             int success = json.getInt(TAG_SUCCESS);
                             if (success == 1) {
-
                                 /*Intent i = new Intent(mainActivity.this, driverAndRider.class);
                                 startActivity(i);*/
-
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                         return null;
                     }
                 }
@@ -281,11 +245,9 @@ public class mainActivity extends Activity implements OnClickListener {
                     signup.dismiss();
                 }
             });
-
             // Make dialog box visible.
             signup.show();
         }
-
     }
 }
 

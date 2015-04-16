@@ -30,6 +30,11 @@ public class driverAndRider extends Activity {
         btnDriver = (Button) findViewById(R.id.btnDriver);
         btnRider = (Button) findViewById(R.id.btnRider);
 
+        txtEventInfo = (TextView)findViewById(R.id.txtEventInfo);
+        Intent intent = getIntent();
+        final String eventInfo = intent.getStringExtra("event");
+        final String event_code = intent.getStringExtra("event_code");
+        txtEventInfo.setText(eventInfo);
 
 
         //rider click event
@@ -37,21 +42,19 @@ public class driverAndRider extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), riderActivity.class);
+                i.putExtra("event_code", event_code);
                 startActivity(i);
             }
         });
 
-        txtEventInfo = (TextView)findViewById(R.id.txtEventInfo);
-        Intent intent = getIntent();
-        final String eventInfo = intent.getStringExtra("event");
-        txtEventInfo.setText(eventInfo);
+
 
         //driver click event
         btnDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), driverActivity.class);
-                i.putExtra("event",eventInfo);
+                i.putExtra("event_code",event_code);
                 startActivity(i);
             }
         });

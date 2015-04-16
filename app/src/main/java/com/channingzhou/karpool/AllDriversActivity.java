@@ -38,7 +38,7 @@ public class AllDriversActivity extends ListActivity {
     ArrayList<HashMap<String, String>> driversList;
 
     //url to get all drivers list
-    private static String url_all_drivers = "http://192.168.0.21/karpool/getAllDrivers.php";
+    private static String url_all_drivers = "http://192.168.1.81/karpool/getAllDrivers.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -48,9 +48,6 @@ public class AllDriversActivity extends ListActivity {
     private static final String TAG_SEAT = "ava_seats";
     private static final String TAG_CELL = "cellphone";
     private static final String TAG_EVENT= "event";
-
-    Intent intent = getIntent();
-    String eventInfo = intent.getStringExtra("event");
 
     //drivers JSONArray
     JSONArray drivers = null;
@@ -68,8 +65,6 @@ public class AllDriversActivity extends ListActivity {
 
         //get listview
         ListView lv = getListView();
-
-
 
         //on selecting single driver
         //SEND SMS SCREEN
@@ -94,20 +89,11 @@ public class AllDriversActivity extends ListActivity {
                 SmsManager sms = SmsManager.getDefault();
                 sms.sendTextMessage(number, null, text, null, null);
 
-                Intent in = new Intent(getApplicationContext(),SMS_Receiver.class);
-                in.putExtra("sender",number);
-                sendBroadcast(in);
                 Toast.makeText(AllDriversActivity.this,"have texted the driver, please wait for the response...",
                                                 Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    //for SMS sending
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-
-    }*/
 
     class LoadAllDrivers extends AsyncTask<String, String, String> {
 
@@ -154,12 +140,15 @@ public class AllDriversActivity extends ListActivity {
                         String seats = c.getString(TAG_SEAT);
                         String cell = c.getString(TAG_CELL);
                         String event = c.getString(TAG_EVENT);
-
+                        System.out.println("even_code from database: " + event);
                         //create new hashmap
                         HashMap<String, String> map = new HashMap<String, String>();
 
+                        Intent intent = getIntent();
+                        String event_code = intent.getStringExtra("event_code");
+                        System.out.println("event_code for rider: " + event_code);
                         //add each child node to hashmap key=> key
-                        if(eventInfo == event){
+                        if(event.equals(event_code)){
                             map.put(TAG_ID, id);
                             map.put(TAG_NAME, name);
                             map.put(TAG_SEAT, seats);
@@ -167,15 +156,9 @@ public class AllDriversActivity extends ListActivity {
 
                             //adding hashlist to arrayList
                             driversList.add(map);
+                            System.out.println(driversList);
                         }
                     }
-                } else {
-                    //no driver found
-                    /*pDialog = new ProgressDialog(AllDriversActivity.this);
-                    pDialog.setMessage("no driver available yet...");
-                    pDialog.setIndeterminate(false);
-                    pDialog.setCancelable(false);
-                    pDialog.show();*/
                 }
             } catch (JSONException e){
                 e.printStackTrace();

@@ -22,7 +22,6 @@ import java.util.List;
  * Created by Channing on 4/6/2015.
  */
 public class riderActivity extends Activity {
-
     //progress dialog
     private ProgressDialog pDialog;
 
@@ -30,11 +29,8 @@ public class riderActivity extends Activity {
     EditText riderName;
     EditText riderCell;
 
-    Intent intent = getIntent();
-    String eventInfo = intent.getStringExtra("event");
-
     //url to create new rider
-    private static String url_create_rider = "http://192.168.0.21/karpool/riderRegister.php";
+    private static String url_create_rider = "http://192.168.1.81/karpool/riderRegister.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -44,17 +40,12 @@ public class riderActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rider);
 
-        //getting JSON object
-        //JSONObject json = jsonParser.makeHttpRequest(url_create_rider, "POST", params);
-
-
         //edit text
         riderName = (EditText) findViewById(R.id.etxRiderName);
         riderCell = (EditText) findViewById(R.id.etxRiderCell);
 
         //save button
         Button btnCreateRider = (Button) findViewById(R.id.btnSubmit);
-
 
         btnCreateRider.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,23 +54,10 @@ public class riderActivity extends Activity {
                 new RegisterNewRider().execute();
             }
         });
-
-
     }
 
     //register new rider
     class RegisterNewRider extends AsyncTask<String, String, String>{
-
-        //show the registration progress
-        /*@Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            *//*pDialog = new ProgressDialog(riderActivity.this);
-            pDialog.setMessage("Registering...");
-            pDialog.setIndeterminate(false);
-            pDialog.show();*//*
-        }*/
-
         //register new rider
         protected String doInBackground(String... args) {
             String name = riderName.getText().toString();
@@ -100,13 +78,14 @@ public class riderActivity extends Activity {
             try{
                 int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
+                    Intent intent = getIntent();
+                    String event_code = intent.getStringExtra("event_code");
                     //successfully created rider
                     Intent i = new Intent(getApplicationContext(),AllDriversActivity.class);
 
-
                     i.putExtra("name", riderName.getText().toString());
                     i.putExtra("cell", riderCell.getText().toString());
-                    i.putExtra("event",eventInfo);
+                    i.putExtra("event_code",event_code);
                     System.out.print("rider: "+name);
                     System.out.println(" " + cell);
 
@@ -117,16 +96,8 @@ public class riderActivity extends Activity {
             } catch (JSONException e){
                 e.printStackTrace();
             }
-
             return null;
         }
-
-        /*//dismiss the progress dialog
-        protected void onPostExecute(String file_url){
-            //dismiss the dialog once done
-            pDialog.dismiss();
-        }*/
-
     }
 }
 

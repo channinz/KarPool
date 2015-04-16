@@ -30,7 +30,7 @@ public class allEvents extends ListActivity {
 
     ArrayList<HashMap<String, String>> eventsList;
 
-    private static String url_all_events = "http://192.168.0.21/karpool/getAllEvents.php";
+    private static String url_all_events = "http://192.168.1.81/karpool/getAllEvents.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -47,7 +47,6 @@ public class allEvents extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_events);
-
 
         //hash map for list view
         eventsList = new ArrayList<HashMap<String, String>>();
@@ -70,8 +69,6 @@ public class allEvents extends ListActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     class LoadAllEvents extends AsyncTask<String, String, String> {
@@ -93,20 +90,19 @@ public class allEvents extends ListActivity {
         * */
         protected String doInBackground(String... args) {
             //building parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> paramsEvents = new ArrayList<NameValuePair>();
             //getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url_all_events, "GET", params);
+            JSONObject jsonEvents = jParser.makeHttpRequest(url_all_events, "GET", paramsEvents);
 
             //Check log cat for JSON response
-            Log.d("All Events: ", json.toString());
+            Log.d("All Events: ", jsonEvents.toString());
             try {
                 //check for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
-
+                int success = jsonEvents.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     //drivers found
                     //getting array of drivers
-                    events = json.getJSONArray(TAG_EVENT);
+                    events = jsonEvents.getJSONArray(TAG_EVENT);
 
                     //looping through all drivers
                     for (int i = 0; i < events.length(); i++) {
@@ -130,18 +126,10 @@ public class allEvents extends ListActivity {
                         //adding hashlist to arrayList
                         eventsList.add(map);
                     }
-                } else {
-                    //no event found
-                    /*pDialog = new ProgressDialog(AllDriversActivity.this);
-                    pDialog.setMessage("no driver available yet...");
-                    pDialog.setIndeterminate(false);
-                    pDialog.setCancelable(false);
-                    pDialog.show();*/
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -158,13 +146,11 @@ public class allEvents extends ListActivity {
                     /*
                     * update parsed JSON data into ListView
                     * */
-
                 /*ListAdapter adapter = new SimpleAdapter(
                         allEvents.this, eventsList, R.layout.event_item, new String[]{TAG_ID, TAG_EVENT, TAG_DESTZIP, TAG_CREATOR},
                         new int[] {R.id.event_id, R.id.event_code, R.id.destination, R.id.creator});
                 //update listview
                 setListAdapter(adapter);*/
-
             }
         });
     }

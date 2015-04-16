@@ -22,5 +22,6 @@
     <string name="create_event">Create Event</string>
     <string name="search_event">Search Event</string>
     <string name="title_activity_all_events">allEvents</string>
+    <string name="title_activity_create_event">createEvent</string>
 
 </resources>

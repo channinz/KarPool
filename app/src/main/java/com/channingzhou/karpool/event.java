@@ -1,7 +1,6 @@
 package com.channingzhou.karpool;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,11 +26,9 @@ public class event extends Activity implements View.OnClickListener {
     EditText existEventCode;
     TextView result;
 
+    JSONParser jParserEvent = new JSONParser();
 
-    JSONParser jParser = new JSONParser();
-
-    private static String url_all_events = "http://192.168.0.21/karpool/getAllEvents.php";
-
+    private static String url_all_events = "http://192.168.1.81/karpool/getAllEvents.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -55,65 +52,43 @@ public class event extends Activity implements View.OnClickListener {
         createEvent = (Button) findViewById(R.id.createEvent);
         createEvent.setOnClickListener(this);
 
-        existEventCode = (EditText) findViewById(R.id.editText);
-        result = (TextView) findViewById(R.id.search_event_code_result);
+        existEventCode = (EditText) findViewById(R.id.editTextEventCode);
 
     }
-
 
     public void onClick(View v){
         if(v == allEvents){
 
-            final Dialog searchEvent = new Dialog(this);
-
-            searchEvent.setContentView(R.layout.activity_searchevent);
-
-            Button btnSelected = (Button) searchEvent.findViewById(R.id.event_selected);
-            /*TextView result = (TextView) searchEvent.findViewById(R.id.search_event_code_result);*/
-
             new searchEvents().execute();
 
-            btnSelected.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(event.this, driverAndRider.class);
-                    startActivity(i);
-                }
-            });
-
         }else if(v == createEvent){
-           /* Intent i = new Intent(event.this, createEvent.class);
-            startActivity(i);*/
+           Intent i = new Intent(event.this, createEvent.class);
+            startActivity(i);
         }
     }
 
     class searchEvents extends AsyncTask<String, String, String>  {
 
-
-
-
         @Override
         protected String doInBackground(String... args) {
             //building parameters
-            List<NameValuePair> params2 = new ArrayList<NameValuePair>();
+            List<NameValuePair> paramsGetEvent = new ArrayList<NameValuePair>();
             //getting JSON string from URL
-            params2.add(new BasicNameValuePair("event_code",
+            paramsGetEvent.add(new BasicNameValuePair("event_code",
                     existEventCode.getText().toString()));
-            JSONObject json2 = jParser.makeHttpRequest(url_all_events, "GET", params2);
-            System.out.println(params2);
-            System.out.println(json2);
+            JSONObject jsonGetEvent = jParserEvent.makeHttpRequest(url_all_events, "GET", paramsGetEvent);
+            System.out.println(paramsGetEvent);
+            System.out.println(jsonGetEvent);
 
             //Check log cat for JSON response
-            Log.d("Event: ", json2.toString());
+            Log.d("Event: ", jsonGetEvent.toString());
             try {
                 //check for SUCCESS TAG
-                int success = json2.getInt(TAG_SUCCESS);
-
+                int success = jsonGetEvent.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     //drivers found
                     //getting array of drivers
-                    events = json2.getJSONArray(TAG_EVENT);
-
+                    events = jsonGetEvent.getJSONArray(TAG_EVENT);
                     //looping through all drivers
                     for (int i = 0; i < events.length(); i++) {
                         JSONObject c = events.getJSONObject(i);
@@ -121,31 +96,26 @@ public class event extends Activity implements View.OnClickListener {
                         //store each JSON item in variable
                         String id = c.getString(TAG_ID);
                         String eventcode = c.getString(TAG_EVENTCODE);
+                        String eventname = c.getString("event_name");
                         String destzip = c.getString(TAG_DESTZIP);
                         String creator = c.getString(TAG_CREATOR);
 
                         //if (existEventCode.getText().toString().equals(eventcode)){
-                            String eventInfo = "Event code: " + eventcode + ", Destination's zip code: " +
-                                    destzip + ", Creator: " + creator;
+                            String eventInfo = "Event name: " + eventname +
+                                    ", Event code: " + eventcode + ", Destination's zip code: " +
+                                    destzip + ", Creator: " + creator + "   Send the Event Code to the people you want to invite!!";
                             System.out.println(eventInfo);
                             Intent in = new Intent(event.this, driverAndRider.class);
                             in.putExtra("event", eventInfo);
+                            in.putExtra("event_code", eventcode);
                             startActivity(in);
                        // }
 
                     }
-                } else {
-                    //no event found
-                    /*pDialog = new ProgressDialog(AllDriversActivity.this);
-                    pDialog.setMessage("no driver available yet...");
-                    pDialog.setIndeterminate(false);
-                    pDialog.setCancelable(false);
-                    pDialog.show();*/
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 

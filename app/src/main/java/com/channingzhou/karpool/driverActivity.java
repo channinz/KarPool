@@ -20,7 +20,6 @@ import java.util.List;
 
 
 public class driverActivity extends Activity {
-
     //progress dialog
     private ProgressDialog pDialog;
 
@@ -30,11 +29,10 @@ public class driverActivity extends Activity {
     EditText avaSeats;
     EditText carType;
 
-    Intent intent = getIntent();
-    String eventInfo = intent.getStringExtra("event");
+
 
     //url to create new rider
-    private static String url_create_driver = "http://192.168.0.21/karpool/driverRegister.php";
+    private static String url_create_driver = "http://192.168.1.81/karpool/driverRegister.php";
 
     //JSON node names
     private static final String TAG_SUCCESS = "success";
@@ -43,10 +41,6 @@ public class driverActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver);
-
-        //getting JSON object
-        //JSONObject json = jsonParser.makeHttpRequest(url_create_rider, "POST", params);
-
 
         //edit text
         driverName = (EditText) findViewById(R.id.etxDriverName);
@@ -65,22 +59,10 @@ public class driverActivity extends Activity {
                 new RegisterNewDriver().execute();
             }
         });
-
-
     }
 
     //register new rider
     class RegisterNewDriver extends AsyncTask<String, String, String> {
-
-        //show the registration progress
-        /*@Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            *//*pDialog = new ProgressDialog(riderActivity.this);
-            pDialog.setMessage("Registering...");
-            pDialog.setIndeterminate(false);
-            pDialog.show();*//*
-        }*/
 
         //register new rider
         protected String doInBackground(String... args) {
@@ -89,18 +71,22 @@ public class driverActivity extends Activity {
             String seats = avaSeats.getText().toString();
             String car = carType.getText().toString();
 
+            Intent intent = getIntent();
+            String event_code = intent.getStringExtra("event_code");
+            System.out.println("event_code" + event_code);
             //building parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("name", name));
             params.add(new BasicNameValuePair("cellphone", cell));
             params.add(new BasicNameValuePair("car_type", car));
             params.add(new BasicNameValuePair("ava_seats", seats));
+            params.add(new BasicNameValuePair("event", event_code));
 
             //getting JSON object
             JSONObject json = jsonParser.makeHttpRequest(url_create_driver, "POST", params);
 
             //check log cat for response
-            Log.d("Create Response", json.toString());
+            Log.d("Create Driver", json.toString());
 
             //check for success tag
             try{
@@ -117,16 +103,8 @@ public class driverActivity extends Activity {
                 e.printStackTrace();
             }
 
-
             return null;
 
         }
-
-        /*//dismiss the progress dialog
-        protected void onPostExecute(String file_url){
-            //dismiss the dialog once done
-            pDialog.dismiss();
-        }*/
-
     }
 }
